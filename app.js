@@ -22,8 +22,8 @@ function getCurrentUTCTime() {
 // Define the endpoint
 app.get('/api', async (req, res) => {
     try {
-        const slackName = req.query.slack_name || 'Nugasquare';
-        const track = req.query.track || 'Backend';
+        const slackName = req.query.slack_name || '';
+        const track = req.query.track || '';
         const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
         const utcTime = getCurrentUTCTime();
         const { fileURL, repoURL } = await getGitHubInfo('username', 'repo', 'file_name.ext');
@@ -43,6 +43,7 @@ app.get('/api', async (req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+
 });
 
 // Start the server

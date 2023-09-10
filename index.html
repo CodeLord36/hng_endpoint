@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Response Display</title>
+</head>
+<body>
+    <h1>API Response</h1>
+    <pre id="response"></pre>
+
+    <script src="app.js">
+        document.addEventListener('DOMContentLoaded', () => {
+        const responseElement = document.getElementById('response');
+
+        // Fetch data from your API endpoint
+        fetch('/api?slack_name=example_name&track=backend') // Modify the query parameters as needed
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok (${response.status})`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Update the HTML content with the API response
+                responseElement.textContent = JSON.stringify(data, null, 2);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                responseElement.textContent = 'Error fetching data from the API.';
+            });
+    });
+    </script>
+</body>
+</html>
